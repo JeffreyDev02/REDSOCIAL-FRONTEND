@@ -1,0 +1,77 @@
+<div class="container">
+    <h1 class="h1-strong">Perfil usuario</h1>
+    <div class="card card-default">
+        <div class="card-body">
+            <div class="card-seccion item-user">
+                <div class="image_user float-left">
+                    <img src="{{usuario.image ? url +  'obteneImagen/' + usuario.image : url + 'obteneImagen/' + 'none.jpg' }}"
+                        alt="imagen">
+                </div>
+                <div class="user-name float-left">
+                    <div class="botton-follow float-left">
+                        <span *ngIf="followed">Te sigue</span>
+                        <p class="name">{{usuario.name +' '+ usuario.surname}}</p>
+                        <p class="nickname">{{usuario.nick}}</p>
+                        <div *ngIf="usuario._id != identidad._id">
+                            <button (click)="seguirUsuario(usuario._id)" class="btn btn-success"
+                            *ngIf="seguidos.indexOf(usuario._id) < 0"> Seguir <i class="bi bi-plus-circle"></i>
+                            </button>
+                            <button (click)="eliminarSeguidor(usuario._id)" class="btn btn-primary"
+                                *ngIf="seguidos.indexOf(usuario._id) >= 0" (mouseenter)="mouseEnter(usuario._id)"
+                                (mouseleave)="mouseLeave(usuario._id)">
+                                <span *ngIf="folloeUserOver == usuario._id; else follow">Dejar de seguir <i
+                                        class="bi bi-dash-circle-fill"></i></span>
+                                <ng-template #follow>Siguiendo <i class="bi bi-check-circle"></i></ng-template>
+                            </button>
+                        </div>
+                        
+                    </div>
+                    <div class="stast-follow float-left">
+                        <ul>
+                            <li><a [routerLink]="['/seguidores',usuario._id, 1]">Seguidores: {{stats.followed}}</a></li>
+                            <li><a [routerLink]="['/siguiendo',usuario._id, 1]">Seguidos: {{stats.following}}</a></li>
+                            <li>Publicaciones: {{stats.publication}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3 item-user" *ngIf="publicacionesId.length > 0; else nowatch">
+        <div class="card mb-3 item-user" *ngFor="let publication of publicacionesId">
+            <div class="card-body">
+                <div class="name-image">
+                    <div class="image-user">
+                        <img src="{{usuario.image ? url +  'obteneImagen/' + usuario.image : url + 'obteneImagen/' + 'none.jpg' }}" alt="image">
+                    </div>
+                    <div class="d-flex flex-column aling-items-center">
+                        <h5 class="card-title">{{usuario.name}}</h5>
+                        <small class="text-muted">{{getTimestamp(publication.create_at)}}</small>
+                    </div>
+                </div>
+                <div class="info-publication mt-2 mb-2">
+                    <p class="card-text">{{publication.text}}</p>
+                </div>
+                <div class="image-publication" *ngIf="publication.file">
+                    <img class="w-100" src="{{url + 'obtenerImagePublicacion/' + publication.file }}" alt="publication">
+                </div>
+                <div class="actions">
+                    <div class="reactions">
+                        <span><i class="bi bi-heart"></i></span> <span><i class="bi bi-chat"></i></span> <span><i
+                                class="bi bi-bookmark"></i></span>
+                    </div>
+                    <div class="save">
+                        <span><i class="bi bi-cursor"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-button">
+            <button (click)="viewMore()" class="btn btn-success" *ngIf="page != totalPage">Ver más</button>
+        </div>
+    </div>
+    <ng-template #nowatch>
+        <p>No existe publicaciones</p>
+    </ng-template>
+    
+</div>

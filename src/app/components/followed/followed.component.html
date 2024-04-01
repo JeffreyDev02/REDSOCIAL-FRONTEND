@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col-lg-7">
+        <h1 class="h1-strong">{{title}} {{getUserId.nick}}</h1>
+        <div class="people">
+            <div *ngFor="let user of users" class="item-user">
+                <div class="card card-default">
+                    <div class="card-body">
+                        <div class="card-seccion">
+                            <div class="image_user float-left">
+                                <img src="{{url + 'obteneImagen/' + user.usuario.image}}" *ngIf="user.usuario.image" alt="">
+                                <img src="{{url + 'obteneImagen/' + 'none.jpg'}}" *ngIf="!user.usuario.image" alt="">
+                            </div>
+                            <div class="user-name float-left">
+                                <p class="name">
+                                    <a [routerLink]="['/perfil/' + user.usuario._id]">
+                                        {{user.usuario.name +' '+ user.usuario.surname}}
+                                    </a>
+                                </p>
+                                <p class="nickname">
+                                    {{user.usuario.nick}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="float-right follow-boton" *ngIf="user.usuario._id != identidad._id">
+                            <button (click)="addfollowUser(user.usuario._id)" class="btn btn-success"
+                                *ngIf="followed.indexOf(user.usuario._id) < 0">
+                                Seguir <i class="bi bi-plus-circle"></i>
+                            </button>
+
+                            <button (click)="removeFollowUser(user.usuario._id)" class="btn btn-primary"
+                                *ngIf="followed.indexOf(user.usuario._id) >= 0" (mouseenter)="mouseEnter(user.usuario._id)"
+                                (mouseleave)="mouseLeave(user.usuario._id)">
+                                <span *ngIf="folloeUserOver == user.usuario._id; else follow">
+                                    Dejar de seguir <i class="bi bi-dash-circle-fill"></i>
+                                </span>
+                                <ng-template #follow>
+                                    Siguiendo <i class="bi bi-check-circle"></i>
+                                </ng-template>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav aria-label="..">
+            <ul class="pagination">
+                <li class="page-item" [ngClass]="{'disabled': page==1}">
+                    <a class="page-link" [routerLink]="['/siguiendo/',idUser,1]"><i class="bi bi-caret-left-fill"></i></a>
+                </li>
+                <li class="page-item" [ngClass]="{'disabled': page==1}">
+                    <a class="page-link" [routerLink]="['/siguiendo/',idUser, prev_page]"><i class="bi bi-arrow-left"></i>
+                    </a>
+                </li>
+
+                <li class="page-item">
+                    <a class="page-link"> {{page}} de {{pages}} </a>
+                </li>
+
+                <li class="page-item" [ngClass]="{'disabled': page == pages}">
+                    <a class="page-link" [routerLink]="['/siguiendo/',idUser,next_page]"><i
+                            class="bi bi-arrow-right"></i></a>
+                </li>
+                <li class="page-item" [ngClass]="{'disabled': page == pages}">
+                    <a class="page-link" [routerLink]="['/siguiendo/',idUser, pages]"><i class="bi bi-caret-right-fill"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-lg-5">
+        <app-sidebar></app-sidebar>
+    </div>
+</div>

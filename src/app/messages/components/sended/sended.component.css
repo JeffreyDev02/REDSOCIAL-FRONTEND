@@ -1,0 +1,21 @@
+.card{
+    display: flex;
+    flex-direction: row;
+}
+
+.card .image-user{
+    width: 95px;
+    height: 95px;
+    overflow: hidden;
+    border-radius: 50%;
+    padding: 10px;
+}
+.card .image-user img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card .card-body{
+    padding: 1rem 0.7rem !important;
+}

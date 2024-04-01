@@ -1,0 +1,52 @@
+.row {
+    max-width: 1200px;
+    margin: auto;
+}
+
+
+.item-user .card-body .name-image {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3px;
+}
+
+.item-user .card-body .name-image .image-user {
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+.item-user .card-body .name-image .image-user img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item-user .card-body h5.card-title{
+    font-size: 16px;
+    margin: 0;
+}
+
+.item-user .card-body p.card-text{
+    font-size: 23px;
+    margin: 0;
+}
+.item-user .card-body .card-text small {
+    font-size: 11px;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.actions .reactions span, .actions .save span {
+    font-size: 20px;
+    cursor: pointer;
+}
+.actions .reactions span {
+    margin-right: 5px;
+}

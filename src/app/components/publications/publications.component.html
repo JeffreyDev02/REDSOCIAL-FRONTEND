@@ -1,0 +1,30 @@
+<div class="">
+    <div *ngFor="let pub of publications" class="publication">
+        <div class="card mb-3 item-user">
+            <div class="card-body">
+                <div class="name-image">
+                    <div class="image-user">
+                        <img src="{{url + 'obteneImagen/' + pub.usuario.image}}" alt="imager" *ngIf="pub.usuario.image">
+                        <img src="../../../assets/img/none.jpg" alt="image" *ngIf="!pub.usuario.image">
+                    </div>
+                    <h5 class="card-title">{{pub.usuario.name}}</h5>
+                </div>
+                <div class="info-publication mt-2">
+                    <p class="card-text">{{pub.text}}</p>
+                    <p class="card-text"><small class="text-muted">{{getTimestamp(pub.create_at)}}</small></p>
+                </div>
+                <div class="actions">
+                    <div class="reactions">
+                        <span><i class="bi bi-heart"></i></span> <span><i class="bi bi-chat"></i></span> <span><i class="bi bi-bookmark"></i></span>
+                    </div>
+                    <div class="save">
+                        <span><i class="bi bi-cursor"></i></span>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 text-">
+        <button class="btn btn-success" (click)="viewMore()" *ngIf="!modo">Ver más</button>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="col-lg-10">
+    <h3>{{title}}</h3>
+    
+    <!-- Listado de mensajes enviados -->
+    <div class="card" *ngFor="let message of messages">
+        <div class="image-user">
+            <img src="{{message.receiver.image != null ? url + 'obteneImagen/' + message.receiver.image : url + 'obteneImagen/' + 'none.jpg'}}" alt="">
+        </div>
+        <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-body-secondary">Enviado a {{message.receiver.name}}</h6>
+            <p class="card-text">{{message.text}}</p>
+        </div>
+    </div>
+    <nav aria-label="..">
+        <ul class="pagination">
+            <li class="page-item" [ngClass]="{'disabled': page==1}">
+                <a class="page-link" [routerLink]="['/mensajes/enviados/'+ 1]"><i class="bi bi-caret-left-fill"></i></a>
+            </li>
+            <li class="page-item" [ngClass]="{'disabled': page==1}">
+                <a class="page-link" [routerLink]="['/mensajes/enviados/'+ prev_page]"><i class="bi bi-arrow-left"></i>
+                </a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link"> {{page}} de {{pages}} </a>
+            </li>
+
+            <li class="page-item" [ngClass]="{'disabled': page == pages}">
+                <a class="page-link" [routerLink]="['/mensajes/enviados/'+ next_page]"><i
+                        class="bi bi-arrow-right"></i></a>
+            </li>
+            <li class="page-item" [ngClass]="{'disabled': page == pages}">
+                <a class="page-link" [routerLink]="['/mensajes/enviados/'+ pages]"><i class="bi bi-caret-right-fill"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

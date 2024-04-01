@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-lg-7">
+        <h1 class="h1-strong">{{title}}</h1>
+        <div *ngFor="let pub of publications" class="publication">
+            <div class="card mb-3 item-user">
+                <div class="card-body">
+                    <div class="name-image">
+                        <div class="image-user">
+                            <img src="{{url + 'obteneImagen/' + pub.usuario.image}}" alt="imager"
+                                *ngIf="pub.usuario.image">
+                            <img src="../../../assets/img/none.jpg" alt="image" *ngIf="!pub.usuario.image">
+                        </div>
+                        <div class="d-flex flex-column aling-items-center">
+                            <h5 class="card-title"><a [routerLink]="['/perfil', pub.usuario._id]">{{pub.usuario.name}}</a> </h5>
+                            <small class="text-muted">{{getTimestamp(pub.create_at)}}</small>
+                        </div>
+                        <div *ngIf="identidad._id == pub.usuario._id" class="optiones">
+                            <!-- Button trigger modal -->
+                            <button type="button" id="delete-pub" class="btn btn-danger text-white" data-toggle="modal" data-target="#exampleModal">
+                                <i class="bi bi-trash"></i>
+                            </button>
+    
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Eliminar publicacion</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ¿Estas seguro de eliminar el usuario?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-primary"data-dismiss="modal"  (click)="deletePublication(pub._id)" >Eliminar Publicacion</button>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-publication mt-2 mb-2">
+                        <p class="card-text">{{pub.text}}</p>
+                    </div>
+                    
+                    <!-- <div *ngIf="pub.file" >
+                        <button *ngIf="showImage != pub._id" class="btn btn-warning text-white" (click)="showThisImage(pub._id)"><i class="bi bi-image"></i></button>
+                        <button *ngIf="showImage == pub._id" class="btn btn-danger text-white" (click)="hiddenThisImage()"><i class="bi bi-x-circle"></i></button>
+                    </div> -->
+                    <div class="image-publication col-lg-12" *ngIf="pub.file">
+                        <img class="w-100" src="{{url + 'obtenerImagePublicacion/' + pub.file }}" alt="publication">
+                    </div>
+                    <div class="actions">
+                        <div class="reactions">
+                            <span><i class="bi bi-heart"></i></span> <span><i class="bi bi-chat"></i></span> <span><i class="bi bi-bookmark"></i></span>
+                        </div>
+                        <!-- <div class="save">
+                            <span><i class="bi bi-cursor"></i></span>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 scroll-button">
+            <button class="btn btn-success" (click)="viewMore(); scrollDown()" *ngIf="total != 0 && totalPage != page">Ver más</button>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <app-sidebar (sended)="refresh($event)"></app-sidebar>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+form p span {
+    display: block;
+    padding: 5px;
+    color: white;
+    background-color: red;
+    font-size: 14px;
+}
+
+form input[type="submit"]{
+    background-color: #e53c37 !important ;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+}
+
+
+div.messages span{
+    display: block !important;
+}

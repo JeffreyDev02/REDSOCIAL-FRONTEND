@@ -1,0 +1,54 @@
+<h2 class="h2-strong">Hola! {{identidad.name}}</h2>
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="sidebar-image">
+            <img src="{{url + 'obteneImagen/' + identidad.image}}" alt=".cargagando" *ngIf="identidad.image">
+            <img src="{{url + 'obteneImagen/' + 'none.jpg'}}" alt=".cargagando" *ngIf="!identidad.image">
+        </div>
+        <div class="sidebar-name">
+            <h3><a [routerLink]="['/perfil',identidad._id ]">{{identidad.name}} {{identidad.surname}}</a></h3>
+            <p>{{identidad.nick}}</p>
+        </div>
+        <div class="stast">
+            <div class="info right">
+                <a [routerLink]="['/seguidores/', identidad._id, 1]"><p>Seguidores</p></a> <span>{{stats.followed}}</span>
+            </div>
+            <div class="info">
+                <a [routerLink]="['/siguiendo', identidad._id, 1]"><p>Seguiendo</p></a><span>{{stats.following}}</span>
+            </div>
+            <div class="info left">
+                <p><a [routerLink]="['/perfil', identidad._id]">Publicaciones</a> </p><span>{{stats.publication}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Formulario -->
+<div class="text-status">
+    <span *ngIf="status == 'success'" class="alert-success" role="alert">
+        Publicado Correctamente
+    </span>
+    <span *ngIf="status == 'error'" class="alert-danger" role="alert">
+        No se pudo crear la publicacion
+    </span>
+</div>
+
+<div class="card mt-4" id="new-publication">
+    <div class="card-body">
+        <form #newPubForm="ngForm" (ngSubmit)="onSubmit(); sendPublication($event)" class="">
+            <p>
+                <label for="text">¿Que estas pensando hoy?</label>
+                <textarea name="text" #text="ngModel" [(ngModel)]="publication.text" class="form-control" required></textarea>
+                <span *ngIf="!text.valid && text.touched">El texto de la publicacion es obligatorio</span>
+            </p>
+
+            <p>
+                <label for="file">Subi tu foto</label>
+                <input type="file" name="file" id="input-file" placeholder="Subir obteneImagen" (change)="fileChangeEvento($event)">
+            </p>
+
+            <input type="submit" value="Publicar" class="btn btn-success" [disabled]="!newPubForm.form.valid">
+        </form>
+
+    </div>
+</div>
